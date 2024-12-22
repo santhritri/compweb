@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effective Online Shopping</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Full-screen video background */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Ensures video is in the background */
+        }
+
+        header {
+            background-color: rgba(58, 141, 153, 0.8); /* Semi-transparent overlay */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+            position: relative;
+            font-size: 36px;
+        }
+
+        /* Style for the single category button */
+        .category-button {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #3A8D99;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .category-button:hover {
+            background-color: #2e6f77;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Video background -->
+    <video autoplay muted loop class="video-background">
+        <source src="https://videos.pexels.com/video-files/5865402/5865402-sd_640_360_25fps.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <header>
+        <h1>Effective Online Shopping</h1>
+    </header>
+
+    <!-- Single Category Button -->
+    <button class="category-button" onclick="window.location.href='kkk.html';">
+        Explore Price comparison
+    </button>
+
+</body>
+</html>

@@ -1,0 +1,1502 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" >
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Enhanced Product Catalog</title>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-image: url("https://wallpaperaccess.com/full/3493336.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    .sidebar {
+        width: 20%;
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h2 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        margin-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+        text-decoration: none;
+        font-size: 16px;
+        color: #555;
+        display: block;
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: #e9ecef;
+    }
+ /*.rate {
+    float: left;
+    justify-content: center;
+    gap:10px;
+    margin:20px 0;
+    height: 50px;
+    padding: 0 10px;
+}*/
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+/*.rate:not(:checked) > label:before {
+    content: '★ ';
+}*/
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+.rate {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.rate input {
+    display: none;
+}
+
+.rate label {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    font-size: 24px;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-icons a.facebook:hover {
+    color: #3b5998;
+}
+
+.social-icons a.twitter:hover {
+    color: #1da1f2;
+}
+
+.social-icons a.google:hover {
+    color: #db4437;
+}
+
+
+/*.rate input:checked ~ label,
+.rate label:hover,
+.rate label:hover ~ label {
+    color: #ffc700;
+}*/
+
+.button{
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 15px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+.modal-content i {
+    margin-right: 10px;
+    color: #007bff;
+}
+.modal-content .close:hover,
+.modal-content .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: linear-gradient(45deg, #f6d8ce, #f7819f);
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-height: 500px;
+    max-width: 500px;
+    border-radius: 25px;
+    text-align: center;
+    position: relative;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content .close:hover,
+.modal-content .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+    .flashcards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 75%;
+    }
+
+    .flashcard {
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .flashcard:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .flashcard img {
+        max-width: 100px;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    .flashcard .details {
+        flex: 1;
+    }
+
+    .flashcard .details h2 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .flashcard .details p {
+        margin: 0;
+        font-size: 16px;
+        color: #666;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flashcards {
+            width: 100%;
+        }
+
+        .sidebar {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url("https://wallpaperaccess.com/full/3493336.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 70%;
+            max-width: 1200px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .search-bar input {
+            width: 80%;
+            max-width: 500px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .flashcards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 48%;
+        }
+
+        .flashcard {
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flashcard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .flashcard img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .flashcard .details {
+            flex: 1;
+        }
+
+        .flashcard .details h2 {
+            margin: 0 0 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .flashcard .details p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .table-a .flashcard {
+            background-color: #ffe0b2;
+        }
+
+        .table-b .flashcard {
+            background-color: #c8e6c9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .flashcards {
+                width: 100%;
+            }
+        }
+</style>
+
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <h2>Navigation</h2>
+<h3>Product Catalog</h3>
+<div class="search-bar">
+<input id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." type="text"/>
+</div>
+        <ul>
+            <li><a href="#fruits">Fruits</a></li>
+            <li><a href="#vegetables">Vegetables</a></li>
+            <li><a href="#dairy">Dairy</a></li>
+        </ul>
+
+
+        <h2>Quick Actions</h2>
+        <ul>
+            <li><a href="#" onclick="showCoupon()">Special Offers</a></li>
+            <li><a href="#" onclick="showCustomerSupportModal()">Customer Support</a></li>
+
+
+            <li><a href="#" onclick="showRateModal()">Rate Us</a></li>
+
+
+
+        </ul>
+    </div>
+    <div id="couponModal" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>🎉 Special Offer!</h2>
+          <p>Get 20% off on Dairy products in Farm Fresh!</p>
+      </div>
+  </div>
+
+  <div id="rateModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeRateModal()">&times;</span>
+        <h2>How would you rate us?</h2>
+        <div class="rate">
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label for="star1" title="1 star">★</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label for="star2" title="2 stars">★</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label for="star3" title="3 stars">★</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label for="star4" title="4 stars">★</label>
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label for="star5" title="5 star">★</label>
+        </div>
+        <button onclick="closeRateModal()" class="button">Submit</button>
+    </div>
+</div>
+<div id="customerSupportModal" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="closeCustomerSupportModal()">&times;</span>
+      <h2>Customer Support</h2>
+      <p>
+          <i class="bi bi-envelope"></i> Chat with us via email: 
+          <a href="mailto:abc@gmail.com">abc@gmail.com</a>
+      </p>
+      <p>
+          <i class="bi bi-telephone"></i> For any assistance, call us on: 
+          <a href="tel:+91xxxxxxxxxx">+91 xxxxxxxxxx</a>
+      </p>
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+          <a href="https://facebook.com" target="_blank" class="facebook">
+              <i class="bi bi-facebook"></i>
+          </a>
+          <a href="https://twitter.com" target="_blank" class="twitter">
+              <i class="bi bi-twitter"></i>
+          </a>
+          <a href="https://google.com" target="_blank" class="google">
+              <i class="bi bi-google"></i>
+          </a>
+      </div>
+  </div>
+</div>
+
+
+
+  
+    <div class="container">
+
+
+<div class="flashcards table-a">
+
+ <caption >
+        <h1><b><i>FARM FRESH</i></b></h1>
+    </caption>
+
+<!-- Add more Table A products here -->
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Apple'">
+  <img alt="Apple" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG5-qGBm2EvuFPYHa4Zm7yhHSIHK1r3HUKKg&amp;s"/>
+  <div class="details">
+    <h2>Apple</h2>
+    <p>Price: Rs120.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Banana'">
+  <img alt="Banana" src="https://lh5.googleusercontent.com/proxy/6wyv22q_gkfvCqYEgBpon72GDS6ooUbqk7s39crR-45cH5Ihxn5O4q0U9HBSF0-2V9ZIPs10Pg6MkoVHVS4YBkFVhr_IjC7v_vHBe16LPzKSkS1nMNA"/>
+  <div class="details">
+    <h2>Banana</h2>
+    <p>Price: Rs55.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Orange'">
+  <img alt="Orange" src="https://www.shysha.in/wp-content/uploads/2021/10/Orange-1-Kg-150x150.jpg"/>
+  <div class="details">
+    <h2>Orange</h2>
+    <p>Price: Rs75.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Grapes'">
+  <img alt="Grapes" src="https://www.urbangroc.com/wp-content/uploads/2021/04/Green-Grapes-1-02-150x150.jpg"/>
+  <div class="details">
+    <h2>Grapes</h2>
+    <p>Price: Rs140.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Pineapple'">
+  <img alt="Pineapple" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS04QBZogC7krrrfZzQF5MgxaEllsjYIbY4IQ&amp;s"/>
+  <div class="details">
+    <h2>Pineapple</h2>
+    <p>Price: Rs55.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Guava'">
+  <img alt="Guava" src="https://www.bigbasket.com/media/uploads/p/s/40238984_1-fresho-guava-allahabad-chittidar-safeda-loaded-with-nutrients-great-for-skin-hair.jpg"/>
+  <div class="details">
+    <h2>Guava</h2>
+    <p>Price: Rs85.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Kiwi'">
+  <img alt="Kiwi" src="https://fruitsbaggy.com/wp-content/uploads/2023/11/kiwi7-150x150.png"/>
+  <div class="details">
+    <h2>Kiwi</h2>
+    <p>Price: Rs180.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Pomegranate'">
+  <img alt="Pomegranate" src="https://3.imimg.com/data3/IU/PF/MY-10389344/pomegrante-150x150-250x250.jpg"/>
+  <div class="details">
+    <h2>Pomegranate</h2>
+    <p>Price: Rs130.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Pear'">
+  <img alt="Pear" src="https://www.jiomart.com/images/product/150x150/599991264/pear-packham-premium-imported-4-pc-product-images-o599991264-p591057892-0-202401251515.jpg"/>
+  <div class="details">
+    <h2>Pear</h2>
+    <p>Price: Rs175.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Papaya'">
+  <img alt="Papaya" src="https://www.bigbasket.com/media/uploads/p/s/10000152-4_1-fresho-papaya-medium.jpg"/>
+  <div class="details">
+    <h2>Papaya</h2>
+    <p>Price: Rs65.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Sapota'">
+  <img alt="Sapota" src="https://www.jiomart.com/images/product/150x150/599990025/sapota-premium-indian-pack-500-g-product-images-o599990025-p590860313-0-202401251515.jpg"/>
+  <div class="details">
+    <h2>Sapota</h2>
+    <p>Price: Rs55.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Coconut'">
+  <img alt="Coconut" src="https://www.jiomart.com/images/product/150x150/590002624/coconut-1-piece-approx-300-g-600-g-product-images-o590002624-p590002624-0-202410141245.jpg"/>
+  <div class="details">
+    <h2>Coconut</h2>
+    <p>Price: Rs110.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Watermelon'">
+  <img alt="Watermelon" src="https://www.watermelon.org/wp-content/uploads/2020/07/Mini-Watermelon-Slice-150x150.jpg"/>
+  <div class="details">
+    <h2>Watermelon</h2>
+    <p>Price: Rs60.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Muskmelon'">
+  <img alt="Muskmelon" src="https://www.jiomart.com/images/product/150x150/599990806/muskmelon-bobby-medium-premium-indian-1-pc-product-images-o599990806-p590945253-0-202401241847.jpg"/>
+  <div class="details">
+    <h2>Muskmelon</h2>
+    <p>Price: Rs65.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Dragon%20Fruit'">
+  <img alt="Dragon Fruit" src="https://www.jiomart.com/images/product/150x150/599990880/dragon-fruit-white-premium-imported-1-pc-product-images-o599990880-p591021540-0-202401241848.jpg"/>
+  <div class="details">
+    <h2>Dragon Fruit</h2>
+    <p>Price: Rs250.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Strawberry'">
+  <img alt="Strawberry" src="https://www.thesophisticatedcaveman.com/wp-content/uploads/2017/06/Strawberries-150x150.jpg.webp"/>
+  <div class="details">
+    <h2>Strawberry</h2>
+    <p>Price: Rs145.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Mango'">
+  <img alt="Mango" src="https://www.frutasmontosa.com/en/wp-content/uploads/2018/02/benefits-mango-150x150.jpg"/>
+  <div class="details">
+    <h2>Mango</h2>
+    <p>Price: Rs85.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="window.location.href='https://santhritri.github.io/webpagea/fruit%20web%201.html?fruit=Lemon'">
+  <img alt="Lemon" src="https://www.urbangroc.com/wp-content/uploads/2021/04/Lemon-1-01-150x150.jpg"/>
+  <div class="details">
+    <h2>Lemon</h2>
+    <p>Price: Rs95.00</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Carrot" src="https://www.urbangroc.com/wp-content/uploads/2021/04/carrot-01-150x150.jpg"/>
+  <div class="details">
+    <h2>Carrot</h2>
+    <p>Price: Rs80.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Broccoli" src="https://png.pngtree.com/png-vector/20240905/ourmid/pngtree-fresh-broccoli-high-quality-isolated-png-image_13758277.png"/>
+  <div class="details">
+    <h2>Broccoli</h2>
+    <p>Price: Rs110.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Spinach" src="https://www.creativehatti.com/wp-content/uploads/2024/02/Picture-of-fresh-spinach-leaves-Small-150x150.jpg"/>
+  <div class="details">
+    <h2>Spinach</h2>
+    <p>Price: Rs25.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Lettuce" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQTiANdrpCknhDzubCr1A8ptysEJi0R0z2ng&amp;s"/>
+  <div class="details">
+    <h2>Lettuce</h2>
+    <p>Price: Rs22.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Cucumber" src="https://3.imimg.com/data3/QN/LE/MY-10389344/fresh-cucumber-1065708-150x150-250x250.jpg"/>
+  <div class="details">
+    <h2>Cucumber</h2>
+    <p>Price: Rs22.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Tomato" src="https://5.imimg.com/data5/SELLER/Default/2023/7/328270845/OG/XH/TD/40002742/tomoto-150x150-250x250.jpg"/>
+  <div class="details">
+    <h2>Tomato</h2>
+    <p>Price: Rs55.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Radish" src="https://www.jiomart.com/images/product/150x150/590000136/white-radish-1-kg-product-images-o590000136-p590000136-0-202409171905.jpg"/>
+  <div class="details">
+    <h2>Radish</h2>
+    <p>Price: Rs40.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Potato" src="https://www.jiomart.com/images/product/150x150/590000090/potato-1-kg-product-images-o590000090-p590000090-0-202410141244.jpg"/>
+  <div class="details">
+    <h2>Potato</h2>
+    <p>Price: Rs50.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Beans" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsnmkXwngNWtHH9n2-ok0zfZa3UXIeNNiyQw&amp;s"/>
+  <div class="details">
+    <h2>Beans</h2>
+    <p>Price: Rs115.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Capsicum" src="https://www.bigbasket.com/media/uploads/p/s/40287310-2_3-fresho-coloured-capsicum-mix.jpg"/>
+  <div class="details">
+    <h2>Capsicum</h2>
+    <p>Price: Rs55.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Cauliflower" src="https://3.imimg.com/data3/RN/CW/MY-8611310/screenhunter_25-apr-30-14-18-250x250.jpg"/>
+  <div class="details">
+    <h2>Cauliflower</h2>
+    <p>Price: Rs30.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Corn" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3o8EZ6Z0XN0mxX5cxkItu1MW5gsLyjbHeqA&amp;s"/>
+  <div class="details">
+    <h2>Corn</h2>
+    <p>Price: Rs22.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Ladies Finger" src="https://3.imimg.com/data3/YS/GK/ETO-4069743/wp-content-uploads-2011-08-lady-finger1-150x150-250x250.jpg"/>
+  <div class="details">
+    <h2>Ladies Finger</h2>
+    <p>Price: Rs45.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Onion" src="https://www.jiomart.com/images/product/150x150/590003515/onion-1-kg-product-images-o590003515-p590003515-0-202408070949.jpg"/>
+  <div class="details">
+    <h2>Onion</h2>
+    <p>Price: Rs110.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Garlic" src="https://3.imimg.com/data3/LW/GS/MY-8786638/8-250x250.jpg"/>
+  <div class="details">
+    <h2>Garlic</h2>
+    <p>Price: Rs100.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Ginger" src="https://www.bigbasket.com/media/uploads/p/s/50000509_6-fresho-ginger-organically-grown.jpg"/>
+  <div class="details">
+    <h2>Ginger</h2>
+    <p>Price: Rs18.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Sweet Potato" src="https://www.bigbasket.com/media/uploads/p/s/10000193-2_3-fresho-sweet-potato.jpg"/>
+  <div class="details">
+    <h2>Sweet Potato</h2>
+    <p>Price: Rs38.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/vegetables%20web%201.html')">
+  <img alt="Beetroot" src="https://www.bigbasket.com/media/uploads/p/s/10000163-2_3-fresho-beetroot.jpg"/>
+  <div class="details">
+    <h2>Beetroot</h2>
+    <p>Price: Rs75.00</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Milk" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfegrlgckl1N6VOKZk1FtrSH72kxj_UKpiNg&amp;s"/>
+  <div class="details">
+    <h2>Milk</h2>
+    <p>Price: Rs25.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Cheese" src="https://www.urbangroc.com/wp-content/uploads/2021/04/Amul-Cheese-Slice-150x150.jpg"/>
+  <div class="details">
+    <h2>Cheese</h2>
+    <p>Price: Rs130.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Yogurt" src="https://www.jiomart.com/images/product/150x150/494304016/mother-dairy-plan-greek-yoghurt-100-g-cup-product-images-o494304016-p610078936-0-202410071502.jpg"/>
+  <div class="details">
+    <h2>Yogurt</h2>
+    <p>Price: Rs65.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Butter" src="https://www.jiomart.com/images/product/150x150/490001387/amul-butter-100-g-carton-product-images-o490001387-p490001387-0-202203170403.jpg"/>
+  <div class="details">
+    <h2>Butter</h2>
+    <p>Price: Rs160.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Cream" src="https://www.jiomart.com/images/product/150x150/490001540/amul-fresh-cooking-cream-1-l-tetra-pak-product-images-o490001540-p490001540-0-202203170446.jpg"/>
+  <div class="details">
+    <h2>Cream</h2>
+    <p>Price: Rs70.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Milk Bread" src="https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_150,h_150/https://www.savorysimple.net/wp-content/uploads/2020/01/1-Milk-Bread_0121-150x150.jpg"/>
+  <div class="details">
+    <h2>Milk Bread</h2>
+    <p>Price: Rs60.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Vanilla Ice Cream" src="https://www.bigbasket.com/media/uploads/p/xl/40163750_4-kwality-walls-frozen-dessert-shameless-vanilla.jpg"/>
+  <div class="details">
+    <h2>Vanilla Ice Cream</h2>
+    <p>Price: Rs210.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Strawberry Ice Cream" src="https://assets.unileversolutions.com/v1/1868113.png"/>
+  <div class="details">
+    <h2>Strawberry Ice Cream</h2>
+    <p>Price: Rs270.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Chocolate Ice Cream" src="https://m.media-amazon.com/images/I/61tWgzjNrOL._AC_UF894,1000_QL80_.jpg"/>
+  <div class="details">
+    <h2>Chocolate Ice Cream</h2>
+    <p>Price: Rs280.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Curd" src="https://www.jiomart.com/images/product/150x150/590002698/nandini-curd-500-g-pouch-product-images-o590002698-p590002698-0-202203150445.jpg"/>
+  <div class="details">
+    <h2>Curd</h2>
+    <p>Price: Rs30.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="MilkyMist Paneer" src="https://www.jiomart.com/images/product/150x150/490006894/milky-mist-paneer-200-g-pack-product-images-o490006894-p490006894-0-202410161200.jpg"/>
+  <div class="details">
+    <h2>MilkyMist Paneer</h2>
+    <p>Price: Rs110.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Milkmaid" src="https://www.bigbasket.com/media/uploads/p/s/266070_12-nestle-milkmaid-sweetened-condensed-milk.jpg"/>
+  <div class="details">
+    <h2>Milkmaid</h2>
+    <p>Price: Rs135.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Ghee" src="https://www.jiomart.com/images/product/150x150/490011311/grb-ghee-200-ml-jar-product-images-o490011311-p490011311-0-202203150148.jpg"/>
+  <div class="details">
+    <h2>Ghee</h2>
+    <p>Price: Rs250.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Whipping Cream" src="https://www.jiomart.com/images/product/150x150/491168476/amul-whipping-cream-250-ml-product-images-o491168476-p590086918-0-202405061541.jpg"/>
+  <div class="details">
+    <h2>Whipping Cream</h2>
+    <p>Price: Rs180.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Buttermilk" src="https://www.jiomart.com/images/product/150x150/490001781/amul-masti-spiced-buttermilk-1-l-tetra-pak-product-images-o490001781-p490001781-0-202203170922.jpg"/>
+  <div class="details">
+    <h2>Buttermilk</h2>
+    <p>Price: Rs25.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Milk Powder" src="https://kiranajunction.co.in/wp-content/uploads/2024/06/266093_5-nestle-everyday-dairy-whitener-milk-powder-for-tea-150x150.webp"/>
+  <div class="details">
+    <h2>Milk Powder</h2>
+    <p>Price: Rs50.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Tofu" src="https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_600/dfqxoo8mgkztanwhzobt"/>
+  <div class="details">
+    <h2>Tofu</h2>
+    <p>Price: Rs130.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpagea/dairy%20web%201.html')">
+  <img alt="Amul Badam Milk" src="https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/kwrpl2x4sxgw32yegoft"/>
+  <div class="details">
+    <h2>Amul Badam Milk</h2>
+    <p>Price: Rs50.00</p>
+  </div>
+</div>
+</div>
+<div class="flashcards table-b">
+<caption><h1><b><i>DAILY HARVEST</i></b></h1></caption>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Apple" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG5-qGBm2EvuFPYHa4Zm7yhHSIHK1r3HUKKg&amp;s"/>
+  <div class="details">
+    <h2>Apple</h2>
+    <p>Price: Rs100.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Banana" src="https://lh5.googleusercontent.com/proxy/6wyv22q_gkfvCqYEgBpon72GDS6ooUbqk7s39crR-45cH5Ihxn5O4q0U9HBSF0-2V9ZIPs10Pg6MkoVHVS4YBkFVhr_IjC7v_vHBe16LPzKSkS1nMNA"/>
+  <div class="details">
+    <h2>Banana</h2>
+    <p>Price: Rs50.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Orange" src="https://www.shysha.in/wp-content/uploads/2021/10/Orange-1-Kg-150x150.jpg"/>
+  <div class="details">
+    <h2>Orange</h2>
+    <p>Price: Rs60.20</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Grapes" src="https://www.urbangroc.com/wp-content/uploads/2021/04/Green-Grapes-1-02-150x150.jpg"/>
+  <div class="details">
+    <h2>Grapes</h2>
+    <p>Price: Rs120.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Pineapple" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS04QBZogC7krrrfZzQF5MgxaEllsjYIbY4IQ&amp;s"/>
+  <div class="details">
+    <h2>Pineapple</h2>
+    <p>Price: Rs40.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Guava" src="https://www.bigbasket.com/media/uploads/p/s/40238984_1-fresho-guava-allahabad-chittidar-safeda-loaded-with-nutrients-great-for-skin-hair.jpg"/>
+  <div class="details">
+    <h2>Guava</h2>
+    <p>Price: Rs70.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Kiwi" src="https://fruitsbaggy.com/wp-content/uploads/2023/11/kiwi7-150x150.png"/>
+  <div class="details">
+    <h2>Kiwi</h2>
+    <p>Price: Rs150.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Pomegranate" src="https://3.imimg.com/data3/IU/PF/MY-10389344/pomegrante-150x150-250x250.jpg"/>
+  <div class="details">
+    <h2>Pomegranate</h2>
+    <p>Price: Rs110.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Pear" src="https://www.jiomart.com/images/product/150x150/599991264/pear-packham-premium-imported-4-pc-product-images-o599991264-p591057892-0-202401251515.jpg"/>
+  <div class="details">
+    <h2>Pear</h2>
+    <p>Price: Rs160.80</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Papaya" src="https://www.bigbasket.com/media/uploads/p/s/10000152-4_1-fresho-papaya-medium.jpg"/>
+  <div class="details">
+    <h2>Papaya</h2>
+    <p>Price: Rs50.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Sapota" src="https://www.jiomart.com/images/product/150x150/599990025/sapota-premium-indian-pack-500-g-product-images-o599990025-p590860313-0-202401251515.jpg"/>
+  <div class="details">
+    <h2>Sapota</h2>
+    <p>Price: Rs50.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Coconut" src="https://www.jiomart.com/images/product/150x150/590002624/coconut-1-piece-approx-300-g-600-g-product-images-o590002624-p590002624-0-202410141245.jpg"/>
+  <div class="details">
+    <h2>Coconut</h2>
+    <p>Price: Rs90.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Watermelon" src="https://www.watermelon.org/wp-content/uploads/2020/07/Mini-Watermelon-Slice-150x150.jpg"/>
+  <div class="details">
+    <h2>Watermelon</h2>
+    <p>Price: Rs45.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Muskmelon" src="https://www.jiomart.com/images/product/150x150/599990806/muskmelon-bobby-medium-premium-indian-1-pc-product-images-o599990806-p590945253-0-202401241847.jpg"/>
+  <div class="details">
+    <h2>Muskmelon</h2>
+    <p>Price: Rs55.80</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Dragon Fruit" src="https://www.jiomart.com/images/product/150x150/599990880/dragon-fruit-white-premium-imported-1-pc-product-images-o599990880-p591021540-0-202401241848.jpg"/>
+  <div class="details">
+    <h2>Dragon Fruit</h2>
+    <p>Price: Rs220.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Strawberry" src="https://www.thesophisticatedcaveman.com/wp-content/uploads/2017/06/Strawberries-150x150.jpg.webp"/>
+  <div class="details">
+    <h2>Strawberry</h2>
+    <p>Price: Rs130.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Mango" src="https://www.frutasmontosa.com/en/wp-content/uploads/2018/02/benefits-mango-150x150.jpg"/>
+  <div class="details">
+    <h2>Mango</h2>
+    <p>Price: Rs75.20</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/fruit.html')">
+  <img alt="Lemon" src="https://www.urbangroc.com/wp-content/uploads/2021/04/Lemon-1-01-150x150.jpg"/>
+  <div class="details">
+    <h2>Lemon</h2>
+    <p>Price: Rs90.60</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Carrot" src="https://www.urbangroc.com/wp-content/uploads/2021/04/carrot-01-150x150.jpg"/>
+  <div class="details">
+    <h2>Carrot</h2>
+    <p>Price: Rs75.75</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Broccoli" src="https://png.pngtree.com/png-vector/20240905/ourmid/pngtree-fresh-broccoli-high-quality-isolated-png-image_13758277.png"/>
+  <div class="details">
+    <h2>Broccoli</h2>
+    <p>Price: Rs100.20</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Spinach" src="https://www.creativehatti.com/wp-content/uploads/2024/02/Picture-of-fresh-spinach-leaves-Small-150x150.jpg"/>
+  <div class="details">
+    <h2>Spinach</h2>
+    <p>Price: Rs20.50</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Lettuce" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQTiANdrpCknhDzubCr1A8ptysEJi0R0z2ng&amp;s"/>
+  <div class="details">
+    <h2>Lettuce</h2>
+    <p>Price: Rs18.90</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Cucumber" src="https://3.imimg.com/data3/QN/LE/MY-10389344/fresh-cucumber-1065708-150x150-250x250.jpg"/>
+  <div class="details">
+    <h2>Cucumber</h2>
+    <p>Price: Rs20.10</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Tomato" src="https://5.imimg.com/data5/SELLER/Default/2023/7/328270845/OG/XH/TD/40002742/tomoto-150x150-250x250.jpg"/>
+  <div class="details">
+    <h2>Tomato</h2>
+    <p>Price: Rs50.00</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Radish" src="https://www.jiomart.com/images/product/150x150/590000136/white-radish-1-kg-product-images-o590000136-p590000136-0-202409171905.jpg"/>
+  <div class="details">
+    <h2>Radish</h2>
+    <p>Price: Rs35.20</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Potato" src="https://www.jiomart.com/images/product/150x150/590000090/potato-1-kg-product-images-o590000090-p590000090-0-202410141244.jpg"/>
+  <div class="details">
+    <h2>Potato</h2>
+    <p>Price: Rs45.80</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Beans" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsnmkXwngNWtHH9n2-ok0zfZa3UXIeNNiyQw&amp;s"/>
+  <div class="details">
+    <h2>Beans</h2>
+    <p>Price: Rs105.50</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Capsicum" src="https://www.bigbasket.com/media/uploads/p/s/40287310-2_3-fresho-coloured-capsicum-mix.jpg"/>
+  <div class="details">
+    <h2>Capsicum</h2>
+    <p>Price: Rs50.00</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Cauliflower" src="https://3.imimg.com/data3/RN/CW/MY-8611310/screenhunter_25-apr-30-14-18-250x250.jpg"/>
+  <div class="details">
+    <h2>Cauliflower</h2>
+    <p>Price: Rs25.50</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Corn" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3o8EZ6Z0XN0mxX5cxkItu1MW5gsLyjbHeqA&amp;s"/>
+  <div class="details">
+    <h2>Corn</h2>
+    <p>Price: Rs18.80</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Ladies Finger" src="https://3.imimg.com/data3/YS/GK/ETO-4069743/wp-content-uploads-2011-08-lady-finger1-150x150-250x250.jpg"/>
+  <div class="details">
+    <h2>Ladies Finger</h2>
+    <p>Price: Rs40.30</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Onion" src="https://www.jiomart.com/images/product/150x150/590003515/onion-1-kg-product-images-o590003515-p590003515-0-202408070949.jpg"/>
+  <div class="details">
+    <h2>Onion</h2>
+    <p>Price: Rs100.00</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Garlic" src="https://3.imimg.com/data3/LW/GS/MY-8786638/8-250x250.jpg"/>
+  <div class="details">
+    <h2>Garlic</h2>
+    <p>Price: Rs90.90</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Ginger" src="https://www.bigbasket.com/media/uploads/p/s/50000509_6-fresho-ginger-organically-grown.jpg"/>
+  <div class="details">
+    <h2>Ginger</h2>
+    <p>Price: Rs15.50</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Sweet Potato" src="https://www.bigbasket.com/media/uploads/p/s/10000193-2_3-fresho-sweet-potato.jpg"/>
+  <div class="details">
+    <h2>Sweet Potato</h2>
+    <p>Price: Rs33.70</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/vegetables.html')">
+  <img alt="Beetroot" src="https://www.bigbasket.com/media/uploads/p/s/40022635_6-fresho-beetroot-organically-grown.jpg"/>
+  <div class="details">
+    <h2>Beetroot</h2>
+    <p>Price: Rs70.40</p>
+  </div>
+</div>
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Milk" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfegrlgckl1N6VOKZk1FtrSH72kxj_UKpiNg&amp;s"/>
+  <div class="details">
+    <h2>Milk</h2>
+    <p>Price: Rs23.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Cheese" src="https://www.urbangroc.com/wp-content/uploads/2021/04/Amul-Cheese-Slice-150x150.jpg"/>
+  <div class="details">
+    <h2>Cheese</h2>
+    <p>Price: Rs120.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Yogurt" src="https://www.jiomart.com/images/product/150x150/494304016/mother-dairy-plan-greek-yoghurt-100-g-cup-product-images-o494304016-p610078936-0-202410071502.jpg"/>
+  <div class="details">
+    <h2>Yogurt</h2>
+    <p>Price: Rs60.20</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Butter" src="https://www.jiomart.com/images/product/150x150/490001387/amul-butter-100-g-carton-product-images-o490001387-p490001387-0-202203170403.jpg"/>
+  <div class="details">
+    <h2>Butter</h2>
+    <p>Price: Rs150.80</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Cream" src="https://www.jiomart.com/images/product/150x150/490001540/amul-fresh-cooking-cream-1-l-tetra-pak-product-images-o490001540-p490001540-0-202203170446.jpg"/>
+  <div class="details">
+    <h2>Cream</h2>
+    <p>Price: Rs60.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Milk Bread" src="https://sp-ao.shortpixel.ai/client/to_auto,q_glossy,ret_img,w_150,h_150/https://www.savorysimple.net/wp-content/uploads/2020/01/1-Milk-Bread_0121-150x150.jpg"/>
+  <div class="details">
+    <h2>Milk Bread</h2>
+    <p>Price: Rs55.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Vanilla Ice Cream" src="https://www.bigbasket.com/media/uploads/p/xl/40163750_4-kwality-walls-frozen-dessert-shameless-vanilla.jpg"/>
+  <div class="details">
+    <h2>Vanilla Ice Cream</h2>
+    <p>Price: Rs200.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Strawberry Ice Cream" src="https://assets.unileversolutions.com/v1/1868113.png"/>
+  <div class="details">
+    <h2>Strawberry Ice Cream</h2>
+    <p>Price: Rs250.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Chocolate Ice Cream" src="https://m.media-amazon.com/images/I/61tWgzjNrOL._AC_UF894,1000_QL80_.jpg"/>
+  <div class="details">
+    <h2>Chocolate Ice Cream</h2>
+    <p>Price: Rs250.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Curd" src="https://www.jiomart.com/images/product/150x150/590002698/nandini-curd-500-g-pouch-product-images-o590002698-p590002698-0-202203150445.jpg"/>
+  <div class="details">
+    <h2>Curd</h2>
+    <p>Price: Rs25.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="MilkyMist Paneer" src="https://www.jiomart.com/images/product/150x150/490006894/milky-mist-paneer-200-g-pack-product-images-o490006894-p490006894-0-202410161200.jpg"/>
+  <div class="details">
+    <h2>MilkyMist Paneer</h2>
+    <p>Price: Rs100.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Milkmaid" src="https://www.bigbasket.com/media/uploads/p/s/266070_12-nestle-milkmaid-sweetened-condensed-milk.jpg"/>
+  <div class="details">
+    <h2>Milkmaid</h2>
+    <p>Price: Rs125.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Ghee" src="https://www.jiomart.com/images/product/150x150/490011311/grb-ghee-200-ml-jar-product-images-o490011311-p490011311-0-202203150148.jpg"/>
+  <div class="details">
+    <h2>Ghee</h2>
+    <p>Price: Rs230.00</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Whipping Cream" src="https://www.jiomart.com/images/product/150x150/491168476/amul-whipping-cream-250-ml-product-images-o491168476-p590086918-0-202405061541.jpg"/>
+  <div class="details">
+    <h2>Whipping Cream</h2>
+    <p>Price: Rs170.50</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Buttermilk" src="https://www.jiomart.com/images/product/150x150/490001781/amul-masti-spiced-buttermilk-1-l-tetra-pak-product-images-o490001781-p490001781-0-202203170922.jpg"/>
+  <div class="details">
+    <h2>Buttermilk</h2>
+    <p>Price: Rs20.80</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Milk Powder" src="https://kiranajunction.co.in/wp-content/uploads/2024/06/266093_5-nestle-everyday-dairy-whitener-milk-powder-for-tea-150x150.webp"/>
+  <div class="details">
+    <h2>Milk Powder</h2>
+    <p>Price: Rs45.80</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Tofu" src="https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_600/dfqxoo8mgkztanwhzobt"/>
+  <div class="details">
+    <h2>Tofu</h2>
+    <p>Price: Rs120.20</p>
+  </div>
+</div>
+
+<div class="flashcard" onclick="redirectTo('https://santhritri.github.io/webpageb/dairy.html')">
+  <img alt="Amul Badam Milk" src="https://instamart-media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/kwrpl2x4sxgw32yegoft"/>
+  <div class="details">
+    <h2>Amul Badam Milk</h2>
+    <p>Price: Rs45.00</p>
+  </div>
+</div>
+</div>
+</div>
+<!-- Add more Table B products here -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const categories = {
+        fruits: ["Apple", "Banana", "Orange", "Grapes", "Pineapple", "Guava", "Kiwi", "Pomegranate", "Pear", "Papaya", "Sapota", "Coconut", "Watermelon", "Muskmelon", "Dragon Fruit", "Strawberry", "Mango", "Lemon"],
+        vegetables: ["Carrot", "Broccoli", "Spinach", "Lettuce", "Cucumber", "Tomato", "Radish", "Potato", "Beans", "Capsicum", "Cauliflower", "Corn", "Ladies Finger", "Onion", "Garlic", "Ginger", "Sweet Potato", "Beetroot"],
+        dairy: ["Milk", "Cheese", "Yogurt", "Butter", "Cream", "Milk Bread", "Vanilla Ice Cream", "Strawberry Ice Cream", "Chocolate Ice Cream", "Curd", "MilkyMist Paneer", "Milkmaid", "Ghee", "Whipping Cream", "Buttermilk", "Milk Powder", "Tofu", "Amul Badam Milk"]
+    };
+
+    function showCategory(category) {
+        const flashcards = document.querySelectorAll(".flashcard");
+        flashcards.forEach(card => {
+            const name = card.querySelector(".details h2").textContent;
+            if (categories[category].includes(name)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
+
+    document.querySelector("a[href='#fruits']").addEventListener("click", (e) => {
+        e.preventDefault();
+        showCategory("fruits");
+    });
+
+    document.querySelector("a[href='#vegetables']").addEventListener("click", (e) => {
+        e.preventDefault();
+        showCategory("vegetables");
+    });
+
+    document.querySelector("a[href='#dairy']").addEventListener("click", (e) => {
+        e.preventDefault();
+        showCategory("dairy");
+    });
+});
+
+        function searchProducts() {
+            var input = document.getElementById("searchInput");
+            var filter = input.value.toUpperCase();
+            var flashcards = document.querySelectorAll(".flashcard");
+
+            flashcards.forEach(card => {
+                var name = card.querySelector(".details h2").textContent;
+                if (name.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function redirectTo(table, product) {
+            if (table === 'A') {
+                window.location.href = 'https://santhritri.github.io/webpagea/home%20web1.html';
+            } else if (table === 'B') {
+                window.location.href = 'https://santhritri.github.io/webpageb/home.html';
+            }
+        }
+        function showCoupon() {
+    const modal = document.getElementById("couponModal");
+    modal.style.display = "flex";
+
+    const closeBtn = modal.querySelector(".close");
+    closeBtn.onclick = () => {
+        modal.style.display = "none";
+    };
+
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
+
+function showRateModal() {
+    const modal = document.getElementById("rateModal");
+    modal.style.display = "flex";
+
+    // Ensure stars are reset
+    const stars = modal.querySelectorAll(".rate input");
+    stars.forEach((star) => (star.checked = false));
+}
+
+function closeRateModal() {
+    const modal = document.getElementById("rateModal");
+    modal.style.display = "none";
+
+    const stars = modal.querySelectorAll(".rate input");
+    stars.forEach((star) => (star.checked = false));
+}
+
+
+// Close modal when clicking outside
+window.onclick = function (event) {
+    const modal = document.getElementById("rateModal");
+    if (event.target === modal) {
+        closeRateModal();
+    }
+};
+
+
+function showCustomerSupportModal() {
+    const modal = document.getElementById("customerSupportModal");
+    modal.style.display = "flex";
+
+    const closeBtn = modal.querySelector(".close");
+    closeBtn.onclick = () => {
+        modal.style.display = "none";
+    };
+
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
+
+
+function redirectTo(url) {
+    window.location.href = url;
+  }
+    </script>
+
+
+</div>
+<script>
+    function searchProducts() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toUpperCase();
+        const flashcards = document.querySelectorAll(".flashcard");
+        flashcards.forEach(card => {
+            const name = card.querySelector(".details h2").textContent.toUpperCase();
+            card.style.display = name.includes(filter) ? "flex" : "none";
+        });
+    }
+</script>
+</body>
+</html>
